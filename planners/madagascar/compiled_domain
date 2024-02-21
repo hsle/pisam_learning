@@ -1,0 +1,915 @@
+(define (domain blocks)
+(:requirements :strips)
+(:types object)
+(:predicates
+	(on ?o1 - object ?o2 - object)
+	(ontable ?o1 - object)
+	(clear ?o1 - object)
+	(handempty )
+	(holding ?o1 - object)
+	(pre_pick-up_ontable_var1 )
+	(eff_pick-up_ontable_var1 )
+	(pre_pick-up_clear_var1 )
+	(eff_pick-up_clear_var1 )
+	(pre_pick-up_handempty )
+	(eff_pick-up_handempty )
+	(pre_pick-up_holding_var1 )
+	(eff_pick-up_holding_var1 )
+	(pre_put-down_ontable_var1 )
+	(eff_put-down_ontable_var1 )
+	(pre_put-down_clear_var1 )
+	(eff_put-down_clear_var1 )
+	(pre_put-down_handempty )
+	(eff_put-down_handempty )
+	(pre_put-down_holding_var1 )
+	(eff_put-down_holding_var1 )
+	(pre_stack_on_var1_var1 )
+	(eff_stack_on_var1_var1 )
+	(pre_stack_on_var1_var2 )
+	(eff_stack_on_var1_var2 )
+	(pre_stack_on_var2_var1 )
+	(eff_stack_on_var2_var1 )
+	(pre_stack_on_var2_var2 )
+	(eff_stack_on_var2_var2 )
+	(pre_stack_ontable_var1 )
+	(eff_stack_ontable_var1 )
+	(pre_stack_ontable_var2 )
+	(eff_stack_ontable_var2 )
+	(pre_stack_clear_var1 )
+	(eff_stack_clear_var1 )
+	(pre_stack_clear_var2 )
+	(eff_stack_clear_var2 )
+	(pre_stack_handempty )
+	(eff_stack_handempty )
+	(pre_stack_holding_var1 )
+	(eff_stack_holding_var1 )
+	(pre_stack_holding_var2 )
+	(eff_stack_holding_var2 )
+	(pre_unstack_on_var1_var1 )
+	(eff_unstack_on_var1_var1 )
+	(pre_unstack_on_var1_var2 )
+	(eff_unstack_on_var1_var2 )
+	(pre_unstack_on_var2_var1 )
+	(eff_unstack_on_var2_var1 )
+	(pre_unstack_on_var2_var2 )
+	(eff_unstack_on_var2_var2 )
+	(pre_unstack_ontable_var1 )
+	(eff_unstack_ontable_var1 )
+	(pre_unstack_ontable_var2 )
+	(eff_unstack_ontable_var2 )
+	(pre_unstack_clear_var1 )
+	(eff_unstack_clear_var1 )
+	(pre_unstack_clear_var2 )
+	(eff_unstack_clear_var2 )
+	(pre_unstack_handempty )
+	(eff_unstack_handempty )
+	(pre_unstack_holding_var1 )
+	(eff_unstack_holding_var1 )
+	(pre_unstack_holding_var2 )
+	(eff_unstack_holding_var2 )
+	(modeProg )
+	(disabled )
+	(action_applied )
+	(test0 )
+	(test1 )
+	(test2 )
+	(test3 )
+	(test4 )
+	(test5 )
+	(test6 )
+	(test7 )
+	(test8 )
+	(test9 )
+	(test10 )
+	(test11 )
+	(test12 )
+	(test13 )
+	(test14 )
+	(test15 )
+	(test16 )
+	(test17 )
+	(test18 )
+	(test19 )
+	(test20 )
+)
+
+(:action insert_pre_pick-up_ontable_var1
+	:parameters ()
+	:precondition (and (modeProg ) (not (pre_pick-up_ontable_var1 )))
+	:effect (and 
+		(pre_pick-up_ontable_var1 )
+	)
+)
+
+(:action insert_pre_pick-up_clear_var1
+	:parameters ()
+	:precondition (and (modeProg ) (not (pre_pick-up_clear_var1 )))
+	:effect (and 
+		(pre_pick-up_clear_var1 )
+	)
+)
+
+(:action insert_pre_pick-up_handempty
+	:parameters ()
+	:precondition (and (modeProg ) (not (pre_pick-up_handempty )))
+	:effect (and 
+		(pre_pick-up_handempty )
+	)
+)
+
+(:action insert_pre_pick-up_holding_var1
+	:parameters ()
+	:precondition (and (modeProg ) (not (pre_pick-up_holding_var1 )))
+	:effect (and 
+		(pre_pick-up_holding_var1 )
+	)
+)
+
+(:action insert_eff_pick-up_ontable_var1
+	:parameters ()
+	:precondition (and (modeProg ) (not (eff_pick-up_ontable_var1 )))
+	:effect (and 
+		(eff_pick-up_ontable_var1 )
+	)
+)
+
+(:action insert_eff_pick-up_clear_var1
+	:parameters ()
+	:precondition (and (modeProg ) (not (eff_pick-up_clear_var1 )))
+	:effect (and 
+		(eff_pick-up_clear_var1 )
+	)
+)
+
+(:action insert_eff_pick-up_handempty
+	:parameters ()
+	:precondition (and (modeProg ) (not (eff_pick-up_handempty )))
+	:effect (and 
+		(eff_pick-up_handempty )
+	)
+)
+
+(:action insert_eff_pick-up_holding_var1
+	:parameters ()
+	:precondition (and (modeProg ) (not (eff_pick-up_holding_var1 )))
+	:effect (and 
+		(eff_pick-up_holding_var1 )
+	)
+)
+
+(:action pick-up
+	:parameters (?o1 - object)
+	:precondition (and (not (disabled )) (not (modeProg )))
+	:effect (and 
+		(action_applied )
+		(when (and (pre_pick-up_ontable_var1 ) (not (ontable ?o1))) (disabled ))
+		(when (and (pre_pick-up_clear_var1 ) (not (clear ?o1))) (disabled ))
+		(when (and (pre_pick-up_handempty ) (not (handempty ))) (disabled ))
+		(when (and (pre_pick-up_holding_var1 ) (not (holding ?o1))) (disabled ))
+		(when (and (pre_pick-up_ontable_var1 ) (eff_pick-up_ontable_var1 )) (not (ontable ?o1)))
+		(when (and (not (pre_pick-up_ontable_var1 )) (eff_pick-up_ontable_var1 )) (ontable ?o1))
+		(when (and (pre_pick-up_clear_var1 ) (eff_pick-up_clear_var1 )) (not (clear ?o1)))
+		(when (and (not (pre_pick-up_clear_var1 )) (eff_pick-up_clear_var1 )) (clear ?o1))
+		(when (and (pre_pick-up_handempty ) (eff_pick-up_handempty )) (not (handempty )))
+		(when (and (not (pre_pick-up_handempty )) (eff_pick-up_handempty )) (handempty ))
+		(when (and (pre_pick-up_holding_var1 ) (eff_pick-up_holding_var1 )) (not (holding ?o1)))
+		(when (and (not (pre_pick-up_holding_var1 )) (eff_pick-up_holding_var1 )) (holding ?o1))
+	)
+)
+
+(:action insert_pre_put-down_ontable_var1
+	:parameters ()
+	:precondition (and (modeProg ) (not (pre_put-down_ontable_var1 )))
+	:effect (and 
+		(pre_put-down_ontable_var1 )
+	)
+)
+
+(:action insert_pre_put-down_clear_var1
+	:parameters ()
+	:precondition (and (modeProg ) (not (pre_put-down_clear_var1 )))
+	:effect (and 
+		(pre_put-down_clear_var1 )
+	)
+)
+
+(:action insert_pre_put-down_handempty
+	:parameters ()
+	:precondition (and (modeProg ) (not (pre_put-down_handempty )))
+	:effect (and 
+		(pre_put-down_handempty )
+	)
+)
+
+(:action insert_pre_put-down_holding_var1
+	:parameters ()
+	:precondition (and (modeProg ) (not (pre_put-down_holding_var1 )))
+	:effect (and 
+		(pre_put-down_holding_var1 )
+	)
+)
+
+(:action insert_eff_put-down_ontable_var1
+	:parameters ()
+	:precondition (and (modeProg ) (not (eff_put-down_ontable_var1 )))
+	:effect (and 
+		(eff_put-down_ontable_var1 )
+	)
+)
+
+(:action insert_eff_put-down_clear_var1
+	:parameters ()
+	:precondition (and (modeProg ) (not (eff_put-down_clear_var1 )))
+	:effect (and 
+		(eff_put-down_clear_var1 )
+	)
+)
+
+(:action insert_eff_put-down_handempty
+	:parameters ()
+	:precondition (and (modeProg ) (not (eff_put-down_handempty )))
+	:effect (and 
+		(eff_put-down_handempty )
+	)
+)
+
+(:action insert_eff_put-down_holding_var1
+	:parameters ()
+	:precondition (and (modeProg ) (not (eff_put-down_holding_var1 )))
+	:effect (and 
+		(eff_put-down_holding_var1 )
+	)
+)
+
+(:action put-down
+	:parameters (?o1 - object)
+	:precondition (and (not (disabled )) (not (modeProg )))
+	:effect (and 
+		(action_applied )
+		(when (and (pre_put-down_ontable_var1 ) (not (ontable ?o1))) (disabled ))
+		(when (and (pre_put-down_clear_var1 ) (not (clear ?o1))) (disabled ))
+		(when (and (pre_put-down_handempty ) (not (handempty ))) (disabled ))
+		(when (and (pre_put-down_holding_var1 ) (not (holding ?o1))) (disabled ))
+		(when (and (pre_put-down_ontable_var1 ) (eff_put-down_ontable_var1 )) (not (ontable ?o1)))
+		(when (and (not (pre_put-down_ontable_var1 )) (eff_put-down_ontable_var1 )) (ontable ?o1))
+		(when (and (pre_put-down_clear_var1 ) (eff_put-down_clear_var1 )) (not (clear ?o1)))
+		(when (and (not (pre_put-down_clear_var1 )) (eff_put-down_clear_var1 )) (clear ?o1))
+		(when (and (pre_put-down_handempty ) (eff_put-down_handempty )) (not (handempty )))
+		(when (and (not (pre_put-down_handempty )) (eff_put-down_handempty )) (handempty ))
+		(when (and (pre_put-down_holding_var1 ) (eff_put-down_holding_var1 )) (not (holding ?o1)))
+		(when (and (not (pre_put-down_holding_var1 )) (eff_put-down_holding_var1 )) (holding ?o1))
+	)
+)
+
+(:action insert_pre_stack_on_var1_var1
+	:parameters ()
+	:precondition (and (modeProg ) (not (pre_stack_on_var1_var1 )))
+	:effect (and 
+		(pre_stack_on_var1_var1 )
+	)
+)
+
+(:action insert_pre_stack_on_var1_var2
+	:parameters ()
+	:precondition (and (modeProg ) (not (pre_stack_on_var1_var2 )))
+	:effect (and 
+		(pre_stack_on_var1_var2 )
+	)
+)
+
+(:action insert_pre_stack_on_var2_var1
+	:parameters ()
+	:precondition (and (modeProg ) (not (pre_stack_on_var2_var1 )))
+	:effect (and 
+		(pre_stack_on_var2_var1 )
+	)
+)
+
+(:action insert_pre_stack_on_var2_var2
+	:parameters ()
+	:precondition (and (modeProg ) (not (pre_stack_on_var2_var2 )))
+	:effect (and 
+		(pre_stack_on_var2_var2 )
+	)
+)
+
+(:action insert_pre_stack_ontable_var1
+	:parameters ()
+	:precondition (and (modeProg ) (not (pre_stack_ontable_var1 )))
+	:effect (and 
+		(pre_stack_ontable_var1 )
+	)
+)
+
+(:action insert_pre_stack_ontable_var2
+	:parameters ()
+	:precondition (and (modeProg ) (not (pre_stack_ontable_var2 )))
+	:effect (and 
+		(pre_stack_ontable_var2 )
+	)
+)
+
+(:action insert_pre_stack_clear_var1
+	:parameters ()
+	:precondition (and (modeProg ) (not (pre_stack_clear_var1 )))
+	:effect (and 
+		(pre_stack_clear_var1 )
+	)
+)
+
+(:action insert_pre_stack_clear_var2
+	:parameters ()
+	:precondition (and (modeProg ) (not (pre_stack_clear_var2 )))
+	:effect (and 
+		(pre_stack_clear_var2 )
+	)
+)
+
+(:action insert_pre_stack_handempty
+	:parameters ()
+	:precondition (and (modeProg ) (not (pre_stack_handempty )))
+	:effect (and 
+		(pre_stack_handempty )
+	)
+)
+
+(:action insert_pre_stack_holding_var1
+	:parameters ()
+	:precondition (and (modeProg ) (not (pre_stack_holding_var1 )))
+	:effect (and 
+		(pre_stack_holding_var1 )
+	)
+)
+
+(:action insert_pre_stack_holding_var2
+	:parameters ()
+	:precondition (and (modeProg ) (not (pre_stack_holding_var2 )))
+	:effect (and 
+		(pre_stack_holding_var2 )
+	)
+)
+
+(:action insert_eff_stack_on_var1_var1
+	:parameters ()
+	:precondition (and (modeProg ) (not (eff_stack_on_var1_var1 )))
+	:effect (and 
+		(eff_stack_on_var1_var1 )
+	)
+)
+
+(:action insert_eff_stack_on_var1_var2
+	:parameters ()
+	:precondition (and (modeProg ) (not (eff_stack_on_var1_var2 )))
+	:effect (and 
+		(eff_stack_on_var1_var2 )
+	)
+)
+
+(:action insert_eff_stack_on_var2_var1
+	:parameters ()
+	:precondition (and (modeProg ) (not (eff_stack_on_var2_var1 )))
+	:effect (and 
+		(eff_stack_on_var2_var1 )
+	)
+)
+
+(:action insert_eff_stack_on_var2_var2
+	:parameters ()
+	:precondition (and (modeProg ) (not (eff_stack_on_var2_var2 )))
+	:effect (and 
+		(eff_stack_on_var2_var2 )
+	)
+)
+
+(:action insert_eff_stack_ontable_var1
+	:parameters ()
+	:precondition (and (modeProg ) (not (eff_stack_ontable_var1 )))
+	:effect (and 
+		(eff_stack_ontable_var1 )
+	)
+)
+
+(:action insert_eff_stack_ontable_var2
+	:parameters ()
+	:precondition (and (modeProg ) (not (eff_stack_ontable_var2 )))
+	:effect (and 
+		(eff_stack_ontable_var2 )
+	)
+)
+
+(:action insert_eff_stack_clear_var1
+	:parameters ()
+	:precondition (and (modeProg ) (not (eff_stack_clear_var1 )))
+	:effect (and 
+		(eff_stack_clear_var1 )
+	)
+)
+
+(:action insert_eff_stack_clear_var2
+	:parameters ()
+	:precondition (and (modeProg ) (not (eff_stack_clear_var2 )))
+	:effect (and 
+		(eff_stack_clear_var2 )
+	)
+)
+
+(:action insert_eff_stack_handempty
+	:parameters ()
+	:precondition (and (modeProg ) (not (eff_stack_handempty )))
+	:effect (and 
+		(eff_stack_handempty )
+	)
+)
+
+(:action insert_eff_stack_holding_var1
+	:parameters ()
+	:precondition (and (modeProg ) (not (eff_stack_holding_var1 )))
+	:effect (and 
+		(eff_stack_holding_var1 )
+	)
+)
+
+(:action insert_eff_stack_holding_var2
+	:parameters ()
+	:precondition (and (modeProg ) (not (eff_stack_holding_var2 )))
+	:effect (and 
+		(eff_stack_holding_var2 )
+	)
+)
+
+(:action stack
+	:parameters (?o1 - object ?o2 - object)
+	:precondition (and (not (disabled )) (not (modeProg )))
+	:effect (and 
+		(action_applied )
+		(when (and (pre_stack_on_var1_var1 ) (not (on ?o1 ?o1))) (disabled ))
+		(when (and (pre_stack_on_var1_var2 ) (not (on ?o1 ?o2))) (disabled ))
+		(when (and (pre_stack_on_var2_var1 ) (not (on ?o2 ?o1))) (disabled ))
+		(when (and (pre_stack_on_var2_var2 ) (not (on ?o2 ?o2))) (disabled ))
+		(when (and (pre_stack_ontable_var1 ) (not (ontable ?o1))) (disabled ))
+		(when (and (pre_stack_ontable_var2 ) (not (ontable ?o2))) (disabled ))
+		(when (and (pre_stack_clear_var1 ) (not (clear ?o1))) (disabled ))
+		(when (and (pre_stack_clear_var2 ) (not (clear ?o2))) (disabled ))
+		(when (and (pre_stack_handempty ) (not (handempty ))) (disabled ))
+		(when (and (pre_stack_holding_var1 ) (not (holding ?o1))) (disabled ))
+		(when (and (pre_stack_holding_var2 ) (not (holding ?o2))) (disabled ))
+		(when (and (pre_stack_on_var1_var1 ) (eff_stack_on_var1_var1 )) (not (on ?o1 ?o1)))
+		(when (and (not (pre_stack_on_var1_var1 )) (eff_stack_on_var1_var1 )) (on ?o1 ?o1))
+		(when (and (pre_stack_on_var1_var2 ) (eff_stack_on_var1_var2 )) (not (on ?o1 ?o2)))
+		(when (and (not (pre_stack_on_var1_var2 )) (eff_stack_on_var1_var2 )) (on ?o1 ?o2))
+		(when (and (pre_stack_on_var2_var1 ) (eff_stack_on_var2_var1 )) (not (on ?o2 ?o1)))
+		(when (and (not (pre_stack_on_var2_var1 )) (eff_stack_on_var2_var1 )) (on ?o2 ?o1))
+		(when (and (pre_stack_on_var2_var2 ) (eff_stack_on_var2_var2 )) (not (on ?o2 ?o2)))
+		(when (and (not (pre_stack_on_var2_var2 )) (eff_stack_on_var2_var2 )) (on ?o2 ?o2))
+		(when (and (pre_stack_ontable_var1 ) (eff_stack_ontable_var1 )) (not (ontable ?o1)))
+		(when (and (not (pre_stack_ontable_var1 )) (eff_stack_ontable_var1 )) (ontable ?o1))
+		(when (and (pre_stack_ontable_var2 ) (eff_stack_ontable_var2 )) (not (ontable ?o2)))
+		(when (and (not (pre_stack_ontable_var2 )) (eff_stack_ontable_var2 )) (ontable ?o2))
+		(when (and (pre_stack_clear_var1 ) (eff_stack_clear_var1 )) (not (clear ?o1)))
+		(when (and (not (pre_stack_clear_var1 )) (eff_stack_clear_var1 )) (clear ?o1))
+		(when (and (pre_stack_clear_var2 ) (eff_stack_clear_var2 )) (not (clear ?o2)))
+		(when (and (not (pre_stack_clear_var2 )) (eff_stack_clear_var2 )) (clear ?o2))
+		(when (and (pre_stack_handempty ) (eff_stack_handempty )) (not (handempty )))
+		(when (and (not (pre_stack_handempty )) (eff_stack_handempty )) (handempty ))
+		(when (and (pre_stack_holding_var1 ) (eff_stack_holding_var1 )) (not (holding ?o1)))
+		(when (and (not (pre_stack_holding_var1 )) (eff_stack_holding_var1 )) (holding ?o1))
+		(when (and (pre_stack_holding_var2 ) (eff_stack_holding_var2 )) (not (holding ?o2)))
+		(when (and (not (pre_stack_holding_var2 )) (eff_stack_holding_var2 )) (holding ?o2))
+	)
+)
+
+(:action insert_pre_unstack_on_var1_var1
+	:parameters ()
+	:precondition (and (modeProg ) (not (pre_unstack_on_var1_var1 )))
+	:effect (and 
+		(pre_unstack_on_var1_var1 )
+	)
+)
+
+(:action insert_pre_unstack_on_var1_var2
+	:parameters ()
+	:precondition (and (modeProg ) (not (pre_unstack_on_var1_var2 )))
+	:effect (and 
+		(pre_unstack_on_var1_var2 )
+	)
+)
+
+(:action insert_pre_unstack_on_var2_var1
+	:parameters ()
+	:precondition (and (modeProg ) (not (pre_unstack_on_var2_var1 )))
+	:effect (and 
+		(pre_unstack_on_var2_var1 )
+	)
+)
+
+(:action insert_pre_unstack_on_var2_var2
+	:parameters ()
+	:precondition (and (modeProg ) (not (pre_unstack_on_var2_var2 )))
+	:effect (and 
+		(pre_unstack_on_var2_var2 )
+	)
+)
+
+(:action insert_pre_unstack_ontable_var1
+	:parameters ()
+	:precondition (and (modeProg ) (not (pre_unstack_ontable_var1 )))
+	:effect (and 
+		(pre_unstack_ontable_var1 )
+	)
+)
+
+(:action insert_pre_unstack_ontable_var2
+	:parameters ()
+	:precondition (and (modeProg ) (not (pre_unstack_ontable_var2 )))
+	:effect (and 
+		(pre_unstack_ontable_var2 )
+	)
+)
+
+(:action insert_pre_unstack_clear_var1
+	:parameters ()
+	:precondition (and (modeProg ) (not (pre_unstack_clear_var1 )))
+	:effect (and 
+		(pre_unstack_clear_var1 )
+	)
+)
+
+(:action insert_pre_unstack_clear_var2
+	:parameters ()
+	:precondition (and (modeProg ) (not (pre_unstack_clear_var2 )))
+	:effect (and 
+		(pre_unstack_clear_var2 )
+	)
+)
+
+(:action insert_pre_unstack_handempty
+	:parameters ()
+	:precondition (and (modeProg ) (not (pre_unstack_handempty )))
+	:effect (and 
+		(pre_unstack_handempty )
+	)
+)
+
+(:action insert_pre_unstack_holding_var1
+	:parameters ()
+	:precondition (and (modeProg ) (not (pre_unstack_holding_var1 )))
+	:effect (and 
+		(pre_unstack_holding_var1 )
+	)
+)
+
+(:action insert_pre_unstack_holding_var2
+	:parameters ()
+	:precondition (and (modeProg ) (not (pre_unstack_holding_var2 )))
+	:effect (and 
+		(pre_unstack_holding_var2 )
+	)
+)
+
+(:action insert_eff_unstack_on_var1_var1
+	:parameters ()
+	:precondition (and (modeProg ) (not (eff_unstack_on_var1_var1 )))
+	:effect (and 
+		(eff_unstack_on_var1_var1 )
+	)
+)
+
+(:action insert_eff_unstack_on_var1_var2
+	:parameters ()
+	:precondition (and (modeProg ) (not (eff_unstack_on_var1_var2 )))
+	:effect (and 
+		(eff_unstack_on_var1_var2 )
+	)
+)
+
+(:action insert_eff_unstack_on_var2_var1
+	:parameters ()
+	:precondition (and (modeProg ) (not (eff_unstack_on_var2_var1 )))
+	:effect (and 
+		(eff_unstack_on_var2_var1 )
+	)
+)
+
+(:action insert_eff_unstack_on_var2_var2
+	:parameters ()
+	:precondition (and (modeProg ) (not (eff_unstack_on_var2_var2 )))
+	:effect (and 
+		(eff_unstack_on_var2_var2 )
+	)
+)
+
+(:action insert_eff_unstack_ontable_var1
+	:parameters ()
+	:precondition (and (modeProg ) (not (eff_unstack_ontable_var1 )))
+	:effect (and 
+		(eff_unstack_ontable_var1 )
+	)
+)
+
+(:action insert_eff_unstack_ontable_var2
+	:parameters ()
+	:precondition (and (modeProg ) (not (eff_unstack_ontable_var2 )))
+	:effect (and 
+		(eff_unstack_ontable_var2 )
+	)
+)
+
+(:action insert_eff_unstack_clear_var1
+	:parameters ()
+	:precondition (and (modeProg ) (not (eff_unstack_clear_var1 )))
+	:effect (and 
+		(eff_unstack_clear_var1 )
+	)
+)
+
+(:action insert_eff_unstack_clear_var2
+	:parameters ()
+	:precondition (and (modeProg ) (not (eff_unstack_clear_var2 )))
+	:effect (and 
+		(eff_unstack_clear_var2 )
+	)
+)
+
+(:action insert_eff_unstack_handempty
+	:parameters ()
+	:precondition (and (modeProg ) (not (eff_unstack_handempty )))
+	:effect (and 
+		(eff_unstack_handempty )
+	)
+)
+
+(:action insert_eff_unstack_holding_var1
+	:parameters ()
+	:precondition (and (modeProg ) (not (eff_unstack_holding_var1 )))
+	:effect (and 
+		(eff_unstack_holding_var1 )
+	)
+)
+
+(:action insert_eff_unstack_holding_var2
+	:parameters ()
+	:precondition (and (modeProg ) (not (eff_unstack_holding_var2 )))
+	:effect (and 
+		(eff_unstack_holding_var2 )
+	)
+)
+
+(:action unstack
+	:parameters (?o1 - object ?o2 - object)
+	:precondition (and (not (disabled )) (not (modeProg )))
+	:effect (and 
+		(action_applied )
+		(when (and (pre_unstack_on_var1_var1 ) (not (on ?o1 ?o1))) (disabled ))
+		(when (and (pre_unstack_on_var1_var2 ) (not (on ?o1 ?o2))) (disabled ))
+		(when (and (pre_unstack_on_var2_var1 ) (not (on ?o2 ?o1))) (disabled ))
+		(when (and (pre_unstack_on_var2_var2 ) (not (on ?o2 ?o2))) (disabled ))
+		(when (and (pre_unstack_ontable_var1 ) (not (ontable ?o1))) (disabled ))
+		(when (and (pre_unstack_ontable_var2 ) (not (ontable ?o2))) (disabled ))
+		(when (and (pre_unstack_clear_var1 ) (not (clear ?o1))) (disabled ))
+		(when (and (pre_unstack_clear_var2 ) (not (clear ?o2))) (disabled ))
+		(when (and (pre_unstack_handempty ) (not (handempty ))) (disabled ))
+		(when (and (pre_unstack_holding_var1 ) (not (holding ?o1))) (disabled ))
+		(when (and (pre_unstack_holding_var2 ) (not (holding ?o2))) (disabled ))
+		(when (and (pre_unstack_on_var1_var1 ) (eff_unstack_on_var1_var1 )) (not (on ?o1 ?o1)))
+		(when (and (not (pre_unstack_on_var1_var1 )) (eff_unstack_on_var1_var1 )) (on ?o1 ?o1))
+		(when (and (pre_unstack_on_var1_var2 ) (eff_unstack_on_var1_var2 )) (not (on ?o1 ?o2)))
+		(when (and (not (pre_unstack_on_var1_var2 )) (eff_unstack_on_var1_var2 )) (on ?o1 ?o2))
+		(when (and (pre_unstack_on_var2_var1 ) (eff_unstack_on_var2_var1 )) (not (on ?o2 ?o1)))
+		(when (and (not (pre_unstack_on_var2_var1 )) (eff_unstack_on_var2_var1 )) (on ?o2 ?o1))
+		(when (and (pre_unstack_on_var2_var2 ) (eff_unstack_on_var2_var2 )) (not (on ?o2 ?o2)))
+		(when (and (not (pre_unstack_on_var2_var2 )) (eff_unstack_on_var2_var2 )) (on ?o2 ?o2))
+		(when (and (pre_unstack_ontable_var1 ) (eff_unstack_ontable_var1 )) (not (ontable ?o1)))
+		(when (and (not (pre_unstack_ontable_var1 )) (eff_unstack_ontable_var1 )) (ontable ?o1))
+		(when (and (pre_unstack_ontable_var2 ) (eff_unstack_ontable_var2 )) (not (ontable ?o2)))
+		(when (and (not (pre_unstack_ontable_var2 )) (eff_unstack_ontable_var2 )) (ontable ?o2))
+		(when (and (pre_unstack_clear_var1 ) (eff_unstack_clear_var1 )) (not (clear ?o1)))
+		(when (and (not (pre_unstack_clear_var1 )) (eff_unstack_clear_var1 )) (clear ?o1))
+		(when (and (pre_unstack_clear_var2 ) (eff_unstack_clear_var2 )) (not (clear ?o2)))
+		(when (and (not (pre_unstack_clear_var2 )) (eff_unstack_clear_var2 )) (clear ?o2))
+		(when (and (pre_unstack_handempty ) (eff_unstack_handempty )) (not (handempty )))
+		(when (and (not (pre_unstack_handempty )) (eff_unstack_handempty )) (handempty ))
+		(when (and (pre_unstack_holding_var1 ) (eff_unstack_holding_var1 )) (not (holding ?o1)))
+		(when (and (not (pre_unstack_holding_var1 )) (eff_unstack_holding_var1 )) (holding ?o1))
+		(when (and (pre_unstack_holding_var2 ) (eff_unstack_holding_var2 )) (not (holding ?o2)))
+		(when (and (not (pre_unstack_holding_var2 )) (eff_unstack_holding_var2 )) (holding ?o2))
+	)
+)
+
+(:action validate_0
+	:parameters ()
+	:precondition (and (modeProg ) (not (disabled )))
+	:effect (and 
+		(not (modeProg ))
+		(clear a)
+		(clear c)
+		(handempty )
+		(on a g)
+		(on b e)
+		(on c d)
+		(on d b)
+		(on e f)
+		(ontable f)
+		(ontable g)
+		(test0 )
+	)
+)
+
+(:action validate_1
+	:parameters ()
+	:precondition (and (action_applied ) (clear a) (not (clear c)) (not (clear e)) (not (holding a)) (not (holding e)) (not (holding g)) (not (on a b)) (not (on a f)) (on a g) (not (on b b)) (not (on e d)) (on e f) (not (on f c)) (not (on f f)) (not (on g c)) (not (on g d)) (not (on g f)) (not (disabled )) (test0 ))
+	:effect (and 
+		(not (action_applied ))
+		(not (test0 ))
+		(test1 )
+	)
+)
+
+(:action validate_2
+	:parameters ()
+	:precondition (and (action_applied ) (clear c) (not (clear g)) (handempty ) (not (holding a)) (not (holding g)) (not (on a a)) (not (on a c)) (not (on a e)) (on a g) (not (on d c)) (not (on d e)) (not (on e a)) (on e f) (not (on f e)) (not (on f f)) (not (ontable a)) (not (ontable e)) (not (disabled )) (test1 ))
+	:effect (and 
+		(not (action_applied ))
+		(not (test1 ))
+		(test2 )
+	)
+)
+
+(:action validate_3
+	:parameters ()
+	:precondition (and (action_applied ) (not (holding a)) (not (holding b)) (not (holding c)) (not (holding f)) (not (on a a)) (not (on c e)) (not (on d e)) (not (on d f)) (not (on f b)) (not (on f d)) (not (on g a)) (not (on g e)) (ontable c) (not (ontable e)) (not (disabled )) (test2 ))
+	:effect (and 
+		(not (action_applied ))
+		(not (test2 ))
+		(test3 )
+	)
+)
+
+(:action validate_4
+	:parameters ()
+	:precondition (and (action_applied ) (not (holding c)) (not (holding d)) (not (on a a)) (not (on a c)) (not (on c d)) (not (on c f)) (not (on d d)) (not (on d e)) (not (on e g)) (not (on f d)) (not (on f f)) (not (on g c)) (not (ontable b)) (not (ontable e)) (ontable g) (not (disabled )) (test3 ))
+	:effect (and 
+		(not (action_applied ))
+		(not (test3 ))
+		(test4 )
+	)
+)
+
+(:action validate_5
+	:parameters ()
+	:precondition (and (action_applied ) (not (clear a)) (clear d) (holding b) (not (holding c)) (not (holding g)) (not (on a b)) (not (on b d)) (not (on b e)) (not (on c a)) (not (on c e)) (not (on d c)) (not (on e a)) (not (on e d)) (not (on e e)) (not (on f a)) (not (on f c)) (not (on f d)) (not (on f e)) (not (on g b)) (not (on g c)) (not (on g e)) (ontable g) (not (disabled )) (test4 ))
+	:effect (and 
+		(not (action_applied ))
+		(not (test4 ))
+		(test5 )
+	)
+)
+
+(:action validate_6
+	:parameters ()
+	:precondition (and (action_applied ) (clear e) (not (clear f)) (not (holding a)) (not (on b d)) (not (on c a)) (not (on c e)) (on d a) (not (on d c)) (not (on e c)) (not (on e d)) (not (on f d)) (not (on g b)) (not (on g c)) (not (on g e)) (ontable c) (not (disabled )) (test5 ))
+	:effect (and 
+		(not (action_applied ))
+		(not (test5 ))
+		(test6 )
+	)
+)
+
+(:action validate_7
+	:parameters ()
+	:precondition (and (action_applied ) (clear e) (not (clear f)) (not (clear g)) (not (holding g)) (not (on a a)) (not (on a e)) (on a g) (not (on b b)) (not (on b e)) (not (on b f)) (not (on c e)) (not (on d c)) (not (on d d)) (not (on e e)) (not (on f b)) (not (on f d)) (not (on g e)) (not (on g f)) (ontable b) (not (ontable d)) (ontable f) (not (disabled )) (test6 ))
+	:effect (and 
+		(not (action_applied ))
+		(not (test6 ))
+		(test7 )
+	)
+)
+
+(:action validate_8
+	:parameters ()
+	:precondition (and (action_applied ) (clear e) (not (holding a)) (not (holding b)) (not (holding c)) (not (holding e)) (not (on a e)) (not (on b f)) (not (on e d)) (not (on f c)) (not (on f d)) (not (on f f)) (not (disabled )) (test7 ))
+	:effect (and 
+		(not (action_applied ))
+		(not (test7 ))
+		(test8 )
+	)
+)
+
+(:action validate_9
+	:parameters ()
+	:precondition (and (action_applied ) (not (holding a)) (not (holding c)) (not (holding e)) (not (on a a)) (not (on a e)) (not (on b a)) (not (on b b)) (not (on d b)) (not (on d c)) (not (on f a)) (not (on f b)) (not (on g c)) (not (on g g)) (ontable b) (not (ontable e)) (not (disabled )) (test8 ))
+	:effect (and 
+		(not (action_applied ))
+		(not (test8 ))
+		(test9 )
+	)
+)
+
+(:action validate_10
+	:parameters ()
+	:precondition (and (action_applied ) (clear a) (clear b) (clear c) (clear d) (clear e) (not (clear f)) (not (clear g)) (handempty ) (not (holding a)) (not (holding b)) (not (holding c)) (not (holding d)) (not (holding e)) (not (holding f)) (not (holding g)) (not (on a a)) (not (on a b)) (not (on a c)) (not (on a d)) (not (on a e)) (not (on a f)) (on a g) (not (on b a)) (not (on b b)) (not (on b c)) (not (on b d)) (not (on b e)) (not (on b f)) (not (on b g)) (not (on c a)) (not (on c b)) (not (on c c)) (not (on c d)) (not (on c e)) (not (on c f)) (not (on c g)) (not (on d a)) (not (on d b)) (not (on d c)) (not (on d d)) (not (on d e)) (not (on d f)) (not (on d g)) (not (on e a)) (not (on e b)) (not (on e c)) (not (on e d)) (not (on e e)) (on e f) (not (on e g)) (not (on f a)) (not (on f b)) (not (on f c)) (not (on f d)) (not (on f e)) (not (on f f)) (not (on f g)) (not (on g a)) (not (on g b)) (not (on g c)) (not (on g d)) (not (on g e)) (not (on g f)) (not (on g g)) (not (ontable a)) (ontable b) (ontable c) (ontable d) (not (ontable e)) (ontable f) (ontable g) (not (disabled )) (test9 ))
+	:effect (and 
+		(not (action_applied ))
+		(not (test9 ))
+		(test10 )
+	)
+)
+
+(:action validate_11
+	:parameters ()
+	:precondition (and (action_applied ) (clear a) (clear c) (not (clear e)) (not (holding a)) (holding e) (not (holding g)) (not (on a b)) (not (on a f)) (on a g) (not (on b b)) (not (on e d)) (not (on e f)) (not (on f c)) (not (on f f)) (not (on g c)) (not (on g d)) (not (on g f)) (not (disabled )) (test10 ))
+	:effect (and 
+		(not (action_applied ))
+		(not (test10 ))
+		(test11 )
+	)
+)
+
+(:action validate_12
+	:parameters ()
+	:precondition (and (action_applied ) (clear c) (not (clear g)) (handempty ) (not (holding a)) (not (holding g)) (not (on a a)) (not (on a c)) (not (on a e)) (on a g) (not (on d c)) (not (on d e)) (not (on e a)) (not (on e f)) (not (on f e)) (not (on f f)) (not (ontable a)) (ontable e) (not (disabled )) (test11 ))
+	:effect (and 
+		(not (action_applied ))
+		(not (test11 ))
+		(test12 )
+	)
+)
+
+(:action validate_13
+	:parameters ()
+	:precondition (and (action_applied ) (holding a) (not (holding b)) (not (holding c)) (not (holding f)) (not (on a a)) (not (on c e)) (not (on d e)) (not (on d f)) (not (on f b)) (not (on f d)) (not (on g a)) (not (on g e)) (ontable c) (ontable e) (not (disabled )) (test12 ))
+	:effect (and 
+		(not (action_applied ))
+		(not (test12 ))
+		(test13 )
+	)
+)
+
+(:action validate_14
+	:parameters ()
+	:precondition (and (action_applied ) (not (holding c)) (not (holding d)) (not (on a a)) (not (on a c)) (not (on c d)) (not (on c f)) (not (on d d)) (not (on d e)) (not (on e g)) (not (on f d)) (not (on f f)) (not (on g c)) (ontable b) (ontable e) (ontable g) (not (disabled )) (test13 ))
+	:effect (and 
+		(not (action_applied ))
+		(not (test13 ))
+		(test14 )
+	)
+)
+
+(:action validate_15
+	:parameters ()
+	:precondition (and (action_applied ) (not (clear a)) (clear d) (not (holding b)) (not (holding c)) (not (holding g)) (not (on a b)) (not (on b d)) (not (on b e)) (not (on c a)) (not (on c e)) (not (on d c)) (not (on e a)) (not (on e d)) (not (on e e)) (not (on f a)) (not (on f c)) (not (on f d)) (not (on f e)) (not (on g b)) (not (on g c)) (not (on g e)) (ontable g) (not (disabled )) (test14 ))
+	:effect (and 
+		(not (action_applied ))
+		(not (test14 ))
+		(test15 )
+	)
+)
+
+(:action validate_16
+	:parameters ()
+	:precondition (and (action_applied ) (clear e) (clear f) (not (holding a)) (not (on b d)) (not (on c a)) (not (on c e)) (not (on d a)) (not (on d c)) (not (on e c)) (not (on e d)) (not (on f d)) (not (on g b)) (not (on g c)) (not (on g e)) (ontable c) (not (disabled )) (test15 ))
+	:effect (and 
+		(not (action_applied ))
+		(not (test15 ))
+		(test16 )
+	)
+)
+
+(:action validate_17
+	:parameters ()
+	:precondition (and (action_applied ) (clear e) (clear f) (clear g) (not (holding g)) (not (on a a)) (not (on a e)) (not (on a g)) (not (on b b)) (not (on b e)) (not (on b f)) (not (on c e)) (not (on d c)) (not (on d d)) (not (on e e)) (not (on f b)) (not (on f d)) (not (on g e)) (not (on g f)) (ontable b) (ontable d) (ontable f) (not (disabled )) (test16 ))
+	:effect (and 
+		(not (action_applied ))
+		(not (test16 ))
+		(test17 )
+	)
+)
+
+(:action validate_18
+	:parameters ()
+	:precondition (and (action_applied ) (clear e) (not (holding a)) (not (holding b)) (not (holding c)) (not (holding e)) (not (on a e)) (not (on b f)) (not (on e d)) (not (on f c)) (not (on f d)) (not (on f f)) (not (disabled )) (test17 ))
+	:effect (and 
+		(not (action_applied ))
+		(not (test17 ))
+		(test18 )
+	)
+)
+
+(:action validate_19
+	:parameters ()
+	:precondition (and (action_applied ) (not (holding a)) (not (holding c)) (not (holding e)) (not (on a a)) (not (on a e)) (not (on b a)) (not (on b b)) (not (on d b)) (not (on d c)) (not (on f a)) (not (on f b)) (not (on g c)) (not (on g g)) (not (ontable b)) (ontable e) (not (disabled )) (test18 ))
+	:effect (and 
+		(not (action_applied ))
+		(not (test18 ))
+		(test19 )
+	)
+)
+
+(:action validate_20
+	:parameters ()
+	:precondition (and (action_applied ) (clear a) (clear b) (clear c) (clear d) (clear e) (clear f) (clear g) (handempty ) (not (holding a)) (not (holding b)) (not (holding c)) (not (holding d)) (not (holding e)) (not (holding f)) (not (holding g)) (not (on a a)) (not (on a b)) (not (on a c)) (not (on a d)) (not (on a e)) (not (on a f)) (not (on a g)) (not (on b a)) (not (on b b)) (not (on b c)) (not (on b d)) (not (on b e)) (not (on b f)) (not (on b g)) (not (on c a)) (not (on c b)) (not (on c c)) (not (on c d)) (not (on c e)) (not (on c f)) (not (on c g)) (not (on d a)) (not (on d b)) (not (on d c)) (not (on d d)) (not (on d e)) (not (on d f)) (not (on d g)) (not (on e a)) (not (on e b)) (not (on e c)) (not (on e d)) (not (on e e)) (not (on e f)) (not (on e g)) (not (on f a)) (not (on f b)) (not (on f c)) (not (on f d)) (not (on f e)) (not (on f f)) (not (on f g)) (not (on g a)) (not (on g b)) (not (on g c)) (not (on g d)) (not (on g e)) (not (on g f)) (not (on g g)) (ontable a) (ontable b) (ontable c) (ontable d) (ontable e) (ontable f) (ontable g) (not (disabled )) (test19 ))
+	:effect (and 
+		(not (action_applied ))
+		(not (test19 ))
+		(test20 )
+	)
+))
