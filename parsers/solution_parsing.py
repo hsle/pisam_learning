@@ -1,6 +1,6 @@
 from ..pddl import Scheme, Effect, Literal, Truth, Conjunction, Plan, Action
-from ..compilation import FoundSolution, NoSolution
-from ..compilation import Explanation
+# from ..compilation import FoundSolution, NoSolution
+# from ..compilation import Explanation
 
 import copy
 
